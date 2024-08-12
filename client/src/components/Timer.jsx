@@ -1,20 +1,22 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 
-const Timer = () => {
+const Timer = ({bannerTimer}) => {
+  
     const [time, setTime] = useState(0);
     const [timer, setTimer] = useState("00:00:00");
     useEffect(() =>{
-        const fetchTime = new Date().getTime() + 1000 * 24 * 60 * 60;
+      console.log("TIMER MOUNTED")
+        const fetchTime = bannerTimer;
         const interval = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = fetchTime - now;
-            setTime(distance);
-            if (distance < 0) {
-                clearInterval(interval);
-                setTime(0);
-                setTimer("00:00:00");
-            }
+          const now = new Date().getTime();
+          const distance = fetchTime - now;
+          setTime(distance);
+          if (distance < 0) {
+            clearInterval(interval);
+            setTime(0);
+            setTimer("00:00:00");
+          }
         }, 1000);
     }, []);
     useEffect(() => {
@@ -26,7 +28,7 @@ const Timer = () => {
 
   return (
     <div>
-      <p>{timer}</p>
+      <p className='text-richRed text-xl font-semibold'>{timer}</p>
     </div>
   )
 }
