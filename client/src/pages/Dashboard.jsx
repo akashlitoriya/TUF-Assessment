@@ -29,11 +29,19 @@ const Dashboard = () => {
     }, [])
     const formSubmitHandler = async(e) => {
         e.preventDefault();
-        let totalSeconds = (timer.day * 86400) + (timer.hour * 3600) + (timer.minute * 60) + timer.second;
-        let timeout = new Date().getTime() + totalSeconds * 1000;
+        let totalSeconds = ((timer.hour * 3600) + (timer.minute * 60) + timer.second);
+        console.log('TOTAL SECONDS : ', totalSeconds)
+        let timeout = Math.floor(new Date().getTime()/1000) + totalSeconds;
         setBanner({ ...banner, bannerTimer: timeout })
-        console.log("FORM DATA", banner);
-        const response = await updateBanner(banner);
+        const data = {
+            showBanner: banner.showBanner,
+            bannerDescription: banner.bannerDescription,
+            bannerLink: banner.bannerLink,
+            bannerTimer: timeout,
+            bannerId: banner.bannerId
+        }
+
+        const response = await updateBanner(data);
     }
 
     return (
@@ -62,17 +70,7 @@ const Dashboard = () => {
                     <div className='flex flex-col gap-3'>
                         <label htmlFor='time' className='text-richBlack-25 font-semibold'>Time :</label>
                         <div className='flex flex-row gap-6'>
-                            <div className='flex flex-col gap-2'>
-                                <input
-                                    type='number'
-                                    min={0}
-                                    max={30}
-                                    value={timer.day}
-                                    onChange={(e) => {e.preventDefault(); setTimer({ ...timer, day: e.target.value })}}
-                                    className='w-20 border-2 border-richBlack-25 rounded-md p-2 bg-richBlack-50 text-richBlack-25'
-                                />
-                                <span className='text-richBlack-25 text-center text-sm font-semibold'>Day</span>
-                            </div>
+                            
                             <div className='flex flex-col gap-2'>
                                 <input
                                     type='number'

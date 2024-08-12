@@ -9,7 +9,8 @@ import { useSelector } from 'react-redux';
 
 
 const Home = () => {
-  const {showBanner} = useSelector(state => state.banner);
+  const {showBanner, bannerTimer} = useSelector(state => state.banner);
+  
   const dispatch = useDispatch();
   useEffect(()=>{
     fetchBanner();
@@ -21,7 +22,7 @@ const Home = () => {
   return (
     <div className='w-screen min-h-[calc(100vh-4rem)] bg-richBlack-100 py-10 flex flex-col gap-10'>
       {
-        showBanner=== 1 && <Banner /> 
+        showBanner=== 1 && (bannerTimer > Math.floor(new Date().getTime() / 1000)) && <Banner /> 
       }
       <FeatureGrid />
     </div>
