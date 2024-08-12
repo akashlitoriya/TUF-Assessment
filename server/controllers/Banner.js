@@ -30,7 +30,10 @@ const getBanners = async(req, res) =>{
 
 const updateBanner = async(req,res) =>{
     try{
-        const {showBanner, bannerDescription, bannerLink, bannerTimer, bannerId} = req.body;
+        const { bannerDescription, bannerLink, bannerTimer, bannerId} = req.body;
+        let showBanner = req.body.showBanner;
+        console.log('BAANNER ID', showBanner)
+        showBanner = showBanner === 1? true: false;
         const query = `UPDATE banner SET showBanner = ?, bannerDescription = ?, bannerLink = ?, bannerTimer = ? WHERE bannerId = ?`;
         const [rows] = await dbClient.promise().execute(query, [showBanner, bannerDescription, bannerLink, bannerTimer, bannerId]);
         console.log("Banner updated successfully")
