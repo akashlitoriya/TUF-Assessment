@@ -7,10 +7,10 @@ import { RxCross2 } from "react-icons/rx";
 
 const Banner = () => {
   const dispatch = useDispatch();
-  const {bannerTimer, bannerDescription} = useSelector(state => state.banner);
+  const {bannerTimer, bannerDescription, bannerLink} = useSelector(state => state.banner);
   console.log("BANNER TIMER : ", bannerTimer);  
   return (
-    <div className='max-w-screen-lg w-full mx-auto bg-richBlack-50 border-[1px] border-richBlack-25 p-10 rounded-lg relative'>
+    <a href={bannerLink} target='_blank' className='max-w-screen-lg w-full mx-auto bg-richBlack-50 border-[1px] border-richBlack-25 p-10 rounded-lg relative cursor-pointer'>
       <div className='absolute top-2 right-2 cursor-pointer' onClick={()=>dispatch(closeBanner())}>
         <RxCross2 className='text-richRed text-3xl'/>
       </div>
@@ -20,7 +20,7 @@ const Banner = () => {
       <div>
         <Timer bannerTimer={bannerTimer}/>
       </div>
-    </div>
+    </a>
   )
 }
 
